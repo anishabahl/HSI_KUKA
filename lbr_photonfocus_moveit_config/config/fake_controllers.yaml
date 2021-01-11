@@ -1,0 +1,16 @@
+controller_list:
+  - name: fake_lbr/arm_controller
+    joints:
+      - lbr_joint_1
+      - lbr_joint_2
+      - lbr_joint_3
+      - lbr_joint_4
+      - lbr_joint_5
+      - lbr_joint_6
+      - lbr_joint_7
+  - name: fake_lbr/camera_controller
+    joints:
+      []
+initial:  # Define initial robot poses.
+  - group: lbr/arm
+    pose: home
