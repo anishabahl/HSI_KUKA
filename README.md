@@ -16,7 +16,7 @@ or:
 roslaunch med7pf_moveit_config moveit_planning_execution.launch sim:=true 
 ```
 
-##To move in checkerboard path 
+## To move in checkerboard path 
 Enter the following command 
 ``` shell 
 roslaunch checkerboard moveit_checkerboard_motion.launch #currently returns error
