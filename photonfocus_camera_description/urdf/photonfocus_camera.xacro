@@ -3,7 +3,7 @@
 
 <xacro:include filename="$(find photonfocus_camera_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find photonfocus_camera_description)/urdf/photonfocus_camera.trans" />
-<xacro:include filename="$(find photonfocus_camera_description)/urdf/photonfocus_camera.gazebo" />
+<xacro:include filename="$(find photonfocus_camera_description)/urdf/photonfocus_camera.gazebo"/>
 
 <xacro:macro name="photonfocus_camera" params="parent camera_name">
 	<link name="base_link">

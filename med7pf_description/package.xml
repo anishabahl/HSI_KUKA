@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>med7pf_description</name>
+  <version>1.0.0</version>
+  <description>med7pf_description</description>
+  <maintainer email="anisha.bahl@kcl.ac.uk">anishabahl</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>lbr_description</exec_depend>
+  <exec_depend>photonfocus_camera_description</exec_depend>
+
+</package>

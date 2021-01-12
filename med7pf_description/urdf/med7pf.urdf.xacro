@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- Here we define the robot, we named it "med7pf" -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="med7pf">
+
+    <!--Import the lbr med7 macro -->
+    <xacro:include filename="$(find lbr_description)/urdf/med7.xacro"/>
+
+    <!-- Include photonfocus_camera xacro -->
+    <xacro:include filename="$(find photonfocus_camera_description)/urdf/photonfocus_camera.xacro"/>
+
+    <!--  Arguments for the med7 macro  -->
+    <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+    <xacro:arg name="robot_name" default="lbr"/>
+    <xacro:arg name="origin_xyz" default="0 0 0"/>
+    <xacro:arg name="origin_rpy" default="0 0 0"/>
+
+    <!-- Arguments for camera xacro -->
+    <xacro:arg name="camera_name" default="photonfocus_camera"/>
+    
+    <!-- fix to world -->
+    <link name="world"/>
+
+    <!-- lbr -->
+    <xacro:med7 hardware_interface="$(arg hardware_interface)" parent="world" robot_name="$(arg robot_name)">
+        <origin xyz="$(arg origin_xyz)" rpy="$(arg origin_rpy)" />
+    </xacro:med7>
+
+    <!-- insert photonfocus_camera -->
+    <xacro:photonfocus_camera camera_name="$(arg camera_name)" parent="$(arg robot_name)_link_ee">
+    </xacro:photonfocus_camera>
+
+</robot>

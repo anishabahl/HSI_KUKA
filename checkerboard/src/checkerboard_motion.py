@@ -17,7 +17,7 @@ import copy
 if __name__ == '__main__':
     rospy.init_node('moveit_motion_checkerboard')
 
-    name = 'arm'
+    name = 'med7pf_arm'
     group = moveit_commander.MoveGroupCommander(name)
     group.set_max_velocity_scaling_factor(0.01)
 
