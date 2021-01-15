@@ -9,7 +9,7 @@ git submodule add https://github.com/anishabahl/HSI_KUKA
 ## To launch simulation 
 Enter the following command when in fri_ros_ws folder with ROS and Moveit sourced.  
 ``` shell 
-roslaunch med7pf_moveit moveit_planning_execution.launch sim:=true 
+roslaunch med7pf_moveit_config moveit_planning_execution.launch sim:=true 
 ```
 
 ## To move in checkerboard path 
