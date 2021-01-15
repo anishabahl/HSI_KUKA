@@ -15,6 +15,6 @@ roslaunch med7pf_moveit moveit_planning_execution.launch sim:=true
 ## To move in checkerboard path 
 Enter the following command 
 ``` shell 
-roslaunch checkerboard moveit_checkerboard_motion.launch #currently not functioning correctly 
+roslaunch checkerboard moveit_checkerboard_motion.launch 
 ```
 To change the path edit the checkerboard_motion.py file in HSI_KUKA/checkerboard/src. 
