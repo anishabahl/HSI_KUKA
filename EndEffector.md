@@ -21,7 +21,7 @@ Steps to follow when adding an end effector to KUKA. First ensure the set-up has
 13. Fill in Author info and generate the package into the relevant folder. 
 
 ## Edit Moveit files 
-14. For all of the following edit by comparing to the relevant files in this repository. 
+15. For all of the following edit by comparing to the relevant files in this repository. 
 demo.launch (lines 14-15, 54),
 demo_gazebo.launch (lines 11-12, 14),
 <robot name>_moveit_controller_manager.launch.xml (lines 6,10),
@@ -31,6 +31,6 @@ trajectory_execution.launch.xml (lines 4, 19-21),
 ros_controllers.yaml (lines 26).
 
 ## Create launch files 
-15. Create moveit_planning_execution.launch file (see med7pf_moveit_config/launch/moveit_planning_execution.launch). 
-16. Edit namespace in moveit_checkerboard_motion.launch and group name checkerboard_motion.py 
-17. Run according to README.md 
+16. Create moveit_planning_execution.launch file (see med7pf_moveit_config/launch/moveit_planning_execution.launch). 
+17. Edit namespace in moveit_checkerboard_motion.launch and group name checkerboard_motion.py 
+18. Run according to README.md 
