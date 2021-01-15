@@ -9,6 +9,7 @@
     <arg name="debug" default="false"/>
     <arg name="hardware_interface" default="PositionJointInterface"/>
     <arg name="robot_name" default="lbr" />
+    <arg name="camera_name" default="photonfocus_camera" />
 
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -24,6 +25,7 @@
     <include file="$(find med7pf_description)/launch/med7pf_upload.launch">
         <arg name="hardware_interface" value="$(arg hardware_interface)"/>
         <arg name="robot_name" value="$(arg robot_name)" />
+        <arg name="camera_name" value="$(arg camera_name)" />
     </include>
 
     <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->

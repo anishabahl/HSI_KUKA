@@ -26,7 +26,7 @@ if __name__ == '__main__':
     group.set_named_target(target)
     rospy.loginfo('Moving to named target "{}"...'.format(target))
     group.go()
-    #group.stop()
+    group.stop()
     rospy.loginfo('Done.')   
 
     # move to joint position
@@ -38,14 +38,13 @@ if __name__ == '__main__':
     current_joint_position[5] += math.pi/2.
     rospy.loginfo('Moving to joint goal...')
     group.go(current_joint_position)
-    #group.stop()
+    group.stop()
     rospy.loginfo('Done.')
 
     # point to point motion (PTP)
     pose = group.get_current_pose().pose
-    
+    rospy.loginfo('Pose.')
     waypoints = []
-    #waypoints.append(copy.deepcopy(pose))
     pose.position.y += 0.31
     pose.position.z -= 0.1
     waypoints.append(copy.deepcopy(pose))
@@ -67,7 +66,7 @@ if __name__ == '__main__':
     plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
     rospy.loginfo('Moving along cartesian path...')
     group.execute(plan)
-    #group.stop()
+    group.stop()
     rospy.loginfo('Done.')
 
     # move to a named target
@@ -75,7 +74,7 @@ if __name__ == '__main__':
     group.set_named_target(target)
     rospy.loginfo('Moving to named target "{}"...'.format(target))
     group.go()
-    #group.stop()
+    group.stop()
     rospy.loginfo('Done.')    
 
     rospy.spin()

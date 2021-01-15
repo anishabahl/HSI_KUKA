@@ -27,7 +27,7 @@
     </xacro:med7>
 
     <!-- insert photonfocus_camera -->
-    <xacro:photonfocus_camera camera_name="$(arg camera_name)" parent="$(arg robot_name)_link_ee">
+    <xacro:photonfocus_camera camera_name="$(arg camera_name)" parent="$(arg robot_name)_link_ee" robot_name="$(arg robot_name)">
     </xacro:photonfocus_camera>
 
 </robot>

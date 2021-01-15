@@ -7,5 +7,7 @@
     <arg name="origin_xyz" default="'0 0 0'"/> <!-- Note the syntax to pass a vector -->
     <arg name="origin_rpy" default="'0 0 0'"/>
 
-    <param name="robot_description" command="$(find xacro)/xacro '$(find med7pf_description)/urdf/med7pf.urdf.xacro' hardware_interface:=$(arg hardware_interface) robot_name:=$(arg robot_name) origin_xyz:=$(arg origin_xyz) origin_rpy:=$(arg origin_rpy)"/>
+    <arg name="camera_name" default="photonfocus_camera"/>
+    
+    <param name="robot_description" command="$(find xacro)/xacro '$(find med7pf_description)/urdf/med7pf.urdf.xacro' hardware_interface:=$(arg hardware_interface) robot_name:=$(arg robot_name) origin_xyz:=$(arg origin_xyz) origin_rpy:=$(arg origin_rpy) camera_name:=$(arg camera_name)"/>
 </launch>
