@@ -120,12 +120,12 @@ def camera_stream(dir_output, settings = [], usedummy=0, vis='norm'):
         # rescale for visualisation
         nda2 = nda.astype(np.float32)
         if vis=='norm':
-            nda2 = (nda-nda.min())/(nda.max()-nda.min())
+            nda2 = (nda2-nda2.min())/(nda2.max()-nda2.min())
             nda2=255*nda2.astype(np.uint8)
         if vis=='scale':
-            nda2 = (nda/nda.max() * 255).astype(np.uint8)
+            nda2 = (nda2/nda2.max() * 255).astype(np.uint8)
         if vis=='none':
-            nda2 = nda.astype(np.uint16)
+            nda2 = nda2.astype(np.uint16)
         nda2 = bridge.cv2_to_imgmsg(nda2, 'passthrough')
         rospy.loginfo('Image published')
         pub.publish(nda2)
