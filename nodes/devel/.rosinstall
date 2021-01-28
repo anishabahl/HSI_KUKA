@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ab20/fri_ros_ws/src/HSI_KUKA/nodes/devel/setup.sh

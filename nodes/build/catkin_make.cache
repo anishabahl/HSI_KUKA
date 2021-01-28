@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/ab20/fri_ros_ws/src/HSI_KUKA/nodes/devel -DCMAKE_INSTALL_PREFIX=/home/ab20/fri_ros_ws/src/HSI_KUKA/nodes/install -G Unix Makefiles
