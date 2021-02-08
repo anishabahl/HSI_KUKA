@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="checkerboard" name="initial_motion" type="initial_motion.py" ns='lbr' output="screen"/>
+</launch>
