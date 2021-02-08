@@ -8,13 +8,14 @@ import interventionalhsi
 import interventionalhsi.visualization.gui
 import interventionalhsi.io.argparse as argparse
 import rospy
-from std_msgs.msg import Image
+from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
 def callback(data):
-    rospy.loginfo('Image received')
+    #rospy.loginfo('Image received')
     bridge = CvBridge()
     nda2 = bridge.imgmsg_to_cv2(data, 'passthrough')
+    nda2 = nda2.astype(np.uint8)
     cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
     cv2.imshow('frame', nda2)
 

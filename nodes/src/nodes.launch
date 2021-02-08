@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="checkerboard" name="checkerboard_motion" type="checkerboard_publisher.py" ns='lbr' output="screen"/>
+    <node pkg="nodes" name="ihsikuka_viewer_subscriber" type="ihsikuka_viewer_subscriber.py" ns='lbr' output="screen" args="$(arg my_args)"/>
+    <node pkg="nodes" name="ihsikuka_viewer" type="ihsikuka_viewer_publisher.py" ns='lbr' output="screen" args="$(arg my_args)"/>
+</launch>
