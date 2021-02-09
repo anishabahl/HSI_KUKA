@@ -63,7 +63,7 @@ def callback(data, args):
             pixel_format="Mono10",
             verbose=False,
         )
-    saved = camera.write_snapshot(dir_output)
+    saved = camera.write_snapshot_kuka(dir_output)
     #rospy.loginfo(data.data + saved)
     #print(2)
     camera.terminate()
