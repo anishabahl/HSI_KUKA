@@ -43,34 +43,18 @@ def get_settings(dir_output):
     return [exposure, gain]
 
 def callback(data, args):
-    dir_output = args[0]
-    settings = args[1]
-    usedummy = args[2]
+    dir_output = args[1]
+    camera = args[0]
     # connects to dummy or camera
-    if usedummy == 1:
-        camera = interventionalhsi.io.photonfocus.PhotonfocusDummy(
-            gain=settings[1],
-            exposure_time=settings[0] / 1000,
-            is_monitor_camera=False,
-            pixel_format="Mono10",
-            verbose=False,
-        )
-    if usedummy == 0:
-        camera = interventionalhsi.io.photonfocus.Photonfocus(
-            gain=settings[1],
-            exposure_time=settings[0] / 1000,
-            is_monitor_camera=False,
-            pixel_format="Mono10",
-            verbose=False,
-        )
-    saved = camera.write_snapshot_kuka(dir_output)
+    data2 = camera.get_data()
+    saved = camera.write_snapshot(dir_output)
     #rospy.loginfo(data.data + saved)
     #print(2)
-    camera.terminate()
+    #camera.terminate()
 
-def save_image(dir_output, settings = [], usedummy=0):
+def save_image(camera, dir_output):
     rospy.init_node('save_image', anonymous=True)
-    rospy.Subscriber('commands', String, callback, callback_args=(dir_output, settings, usedummy))
+    rospy.Subscriber('commands', String, callback, callback_args=(camera, dir_output))
     #print(1)
     rospy.spin()
 
@@ -102,14 +86,31 @@ def main():
     dir_output = os.path.realpath(args.output)
 
     if args.dummy is False:
-        usedummyvalue = 0
+        usedummy = 0
     else:
-        usedummyvalue = 1
+        usedummy = 1
 
     settings = get_settings(dir_output)
     print(settings)
-    #settings = [3, 2]
-    save_image(dir_output, settings, usedummy=usedummyvalue)
 
+    if usedummy == 1:
+        camera = interventionalhsi.io.photonfocus.PhotonfocusDummy(
+            gain=settings[1],
+            exposure_time=settings[0] / 1000,
+            is_monitor_camera=False,
+            pixel_format="Mono10",
+            verbose=False,
+        )
+    if usedummy == 0:
+        camera = interventionalhsi.io.photonfocus.Photonfocus(
+            gain=settings[1],
+            exposure_time=settings[0] / 1000,
+            is_monitor_camera=False,
+            pixel_format="Mono10",
+            verbose=False,
+        )
+    #settings = [3, 2]
+    save_image(camera, dir_output)
+    camera.terminate()
 if __name__ == "__main__":
     main()
