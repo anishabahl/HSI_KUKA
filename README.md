@@ -25,5 +25,5 @@ roslaunch pf_ros pf_ros.launch my_args:="same arguments as ihsi_viewer"
 Note that the path passed to my_args must be absolute and identical to that used with the -o option in ihsi_viewer. 
 
 ## To change path 
-Change checkerboard_publisher.py file in HSI_KUKA/checkerboard/src
+Change checkerboard_publisher.py file in HSI_KUKA/pf_ros/scripts
 
