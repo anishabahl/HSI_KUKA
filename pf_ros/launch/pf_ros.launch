@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="pf_ros" name="checkerboard_publisher" type="checkerboard_publisher.py" ns='lbr' output="screen"/>
+    <node pkg="pf_ros" name="camera_publisher" type="camera_publisher.py" ns='lbr' output="screen" args="$(arg my_args)"/>
+    <node pkg="pf_ros" name="image_saver_subscriber" type="image_saver_subscriber.py" ns='lbr' output="screen" args="$(arg my_args)"/>
+</launch>
