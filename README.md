@@ -16,11 +16,11 @@ Open a second terminal and source as above. Run the following command to move to
 ``` shell 
 roslaunch checkerboard moveit_initial_motion.launch 
 ```
-Open a third terminal and run the ihsi_viewer from the InterventionalHSI repository using the -o option to save to a specified destination (also use -d if simulating or --overwrite to overwrite existing folder.) Set exposure and gain/auto-adjust parameters. Close this viewer/terminal. 
+Open a third terminal and run the ihsi_viewer from the InterventionalHSI repository using the -o option to save to a specified destination (also use -d if simulating or --overwrite to overwrite existing folder.) Set zoom, focus, exposure and gain/auto-adjust parameters. Save dark and white references. Close this viewer/terminal. 
 
 Open a new terminal and source as before. Run the following command to move across the checkerboard and save images at each location using the settings from the ihsi_viewer: 
 ``` shell 
-roslaunch nodes nodes.launch my_args:="same arguments as ihsi_viewer"
+roslaunch pf_ros pf_ros.launch my_args:="same arguments as ihsi_viewer"
 ```
 Note that the path passed to my_args must be absolute and identical to that used with the -o option in ihsi_viewer. 
 
