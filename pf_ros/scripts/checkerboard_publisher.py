@@ -58,6 +58,7 @@ if __name__ == '__main__':
         i = 0
         print(i, j)
         send_command()
+        #group.sleep(2)
         for i in range(5):  # move along negative x
             pose.position.x -= 0.03
             waypoints = []
@@ -67,6 +68,7 @@ if __name__ == '__main__':
             group.stop()
             print(i, j)
             send_command()
+            #group.sleep(2)
             i = i + 1
             # send_command()
         pose.position.y -= 0.03

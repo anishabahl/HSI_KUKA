@@ -20,6 +20,12 @@ def send_command():
     command = 'saved'
     #rospy.loginfo('sent save command')
     pub.publish(command)
+def callback(data):
+    return connected = True
+def receive_notification():
+    rospy.init_node('check_camera', anonymous=True)
+    rospy.Subscriber('connection', String, callback)
+    rospy.spin()
 # see other examples http://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html
 if __name__ == '__main__':
     rospy.init_node('moveit_motion_checkerboard')
