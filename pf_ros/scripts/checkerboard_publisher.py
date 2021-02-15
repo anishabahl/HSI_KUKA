@@ -38,29 +38,63 @@ if __name__ == '__main__':
     group = moveit_commander.MoveGroupCommander(name)
     group.set_max_velocity_scaling_factor(0.01)
     pose = group.get_current_pose().pose
-    send_command() #First one never works so don't expect this to save not sure why though
+    #send_command() #First one never works so don't expect this to save not sure why though
     # waypoints.append(copy.deepcopy(pose))
     #receive_notification(connected)
     msg = rospy.wait_for_message("connection", String)
     #print('received')
     #connected += 1
     #if connected == 1:
-    pose.position.y += 0.35
-    pose.position.z -= 0.1
-    waypoints = []
-    waypoints.append(copy.deepcopy(pose))
-    plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
-    group.execute(plan)
-    group.stop()
+    # pose.position.y += 0.35
+    # pose.position.z -= 0.1
+    # waypoints = []
+    # waypoints.append(copy.deepcopy(pose))
+    # plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    # group.execute(plan)
+    # group.stop()
     # print('I did it')
+    # j = 0
+    # for j in range(8):
+    #     i = 0
+    #     print(i, j)
+    #     send_command()
+    #     #group.sleep(2)
+    #     for i in range(5):  # move along negative x
+    #         pose.position.x -= 0.03
+    #         waypoints = []
+    #         waypoints.append(copy.deepcopy(pose))
+    #         plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    #         group.execute(plan)
+    #         group.stop()
+    #         print(i, j)
+    #         send_command()
+    #         #group.sleep(2)
+    #         i = i + 1
+    #         # send_command()
+    #     pose.position.y -= 0.03
+    #     pose.position.x += 0.15
+    #     waypoints = []
+    #     waypoints.append(copy.deepcopy(pose))
+    #     plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    #     group.execute(plan)
+    #     group.stop()
+    #     if j == 3:
+    #         pose.position.y -= 0.03
+    #         waypoints = []
+    #         waypoints.append(copy.deepcopy(pose))
+    #         plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    #         group.execute(plan)
+    #         group.stop()
+    #     # send_command()
+    #     j = j + 1
     j = 0
     for j in range(8):
         i = 0
         print(i, j)
         send_command()
-        #group.sleep(2)
-        for i in range(5):  # move along negative x
-            pose.position.x -= 0.03
+        # group.sleep(2)
+        for i in range(5):  # move along y
+            pose.position.y += 0.020
             waypoints = []
             waypoints.append(copy.deepcopy(pose))
             plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
@@ -68,18 +102,18 @@ if __name__ == '__main__':
             group.stop()
             print(i, j)
             send_command()
-            #group.sleep(2)
+            # group.sleep(2)
             i = i + 1
             # send_command()
-        pose.position.y -= 0.03
-        pose.position.x += 0.15
+        pose.position.x -= 0.020
+        pose.position.y -= 0.100
         waypoints = []
         waypoints.append(copy.deepcopy(pose))
         plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
         group.execute(plan)
         group.stop()
         if j == 3:
-            pose.position.y -= 0.03
+            pose.position.x -= 0.020
             waypoints = []
             waypoints.append(copy.deepcopy(pose))
             plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
@@ -87,7 +121,6 @@ if __name__ == '__main__':
             group.stop()
         # send_command()
         j = j + 1
-
     # plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
     # rospy.loginfo('Moving along cartesian path...')
     # group.execute(plan)

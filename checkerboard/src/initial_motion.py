@@ -34,11 +34,32 @@ if __name__ == '__main__':
     # current_joint_position[1] += math.pi/3.
     # current_joint_position[3] -= math.pi/3.
     # current_joint_position[5] += math.pi/3.
+    current_joint_position[0] -= math.pi / 2.
     current_joint_position[3] -= math.pi / 2.
     current_joint_position[5] += math.pi / 2.
     rospy.loginfo('Moving to joint goal...')
     group.go(current_joint_position)
     # group.stop()
+    #current_joint_position = group.get_current_joint_values()
+    #current_joint_position[0] -= math.pi / 2.
+    #group.go(current_joint_position)
     rospy.loginfo('Done.')
+
+    pose = group.get_current_pose().pose
+    pose.position.x -= 0.00
+    pose.position.z -= 0.00
+    waypoints = []
+    waypoints.append(copy.deepcopy(pose))
+    plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    group.execute(plan)
+    group.stop()
+    pose.position.y += 0.02
+    pose.position.z -= 0.15
+    waypoints = []
+    waypoints.append(copy.deepcopy(pose))
+    plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    group.execute(plan)
+    group.stop()
+    rospy.loginfo('Done')
 
     rospy.spin()
