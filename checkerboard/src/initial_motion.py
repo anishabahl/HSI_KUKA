@@ -46,14 +46,23 @@ if __name__ == '__main__':
     rospy.loginfo('Done.')
 
     pose = group.get_current_pose().pose
+    pose.position.y -= 0.13
     pose.position.x -= 0.00
-    pose.position.z -= 0.00
+    #pose.position.z -= 0.00
     waypoints = []
     waypoints.append(copy.deepcopy(pose))
     plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
     group.execute(plan)
     group.stop()
-    pose.position.y += 0.02
+    pose.position.y -= 0.10
+    pose.position.x -= 0.11
+    # pose.position.z -= 0.00
+    waypoints = []
+    waypoints.append(copy.deepcopy(pose))
+    plan, fraction = group.compute_cartesian_path(waypoints, eef_step=0.01, jump_threshold=0.)
+    group.execute(plan)
+    group.stop()
+    #pose.position.y += 0.00
     pose.position.z -= 0.15
     waypoints = []
     waypoints.append(copy.deepcopy(pose))
