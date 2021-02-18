@@ -126,9 +126,10 @@ def main():
     #while (True):
     rate = rospy.Rate(100)
     #notify_connection()
+    i = 0
     while not rospy.is_shutdown():
         nda_1d = camera.get_data()[0]
-        notify_connection(pub)
+
         nda = nda_1d.reshape(height, width)
         #start = time.time_ns()
         send_image(pub2, nda)
@@ -139,6 +140,9 @@ def main():
         cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
         cv2.imshow('frame', nda2)
         k = cv2.waitKey(1) & 0xFF
+        if i > 100:
+            notify_connection(pub)
+        i += 1
         # save_image(camera, dir_output)
         #rospy.spin()
         rate.sleep()
