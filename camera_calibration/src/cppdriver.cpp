@@ -4,7 +4,9 @@
 #include <sstream>
 #include <camera_info_manager/camera_info_manager.h>
 
-void imageCallback(const sensor_msgs::ImageConstPtr& msg, caminfo, pub_img, pub_info)
+camera_info_manager::CameraInfoManager caminfo(n, camera_name, camurl);
+
+void imageCallback(const sensor_msgs::ImageConstPtr& msg, image_transport::Publisher pub_img, ros::Publisher pub_info)
 { //use camera_info_manager to create header for camera_info topic
     sensor_msgs::CameraInfo ci;
     ci.header.stamp = ros::Time::now(); 
@@ -19,13 +21,13 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "driver");
     ros::NodeHandle n;
     string camera_name = "camera";
-    image_transport::ImageTransport it(nh);
+    image_transport::ImageTransport it(n);
     image_transport::Publisher pub_img it.advertise(camera_name+"/image_raw", 1);
     ros::Publisher pub_info = n.advertise<sensor_msgs::CameraInfo>(camera_name+"/camera_info", 1);
     const string camurl = "";
-    camera_info_manager::CameraInfoManager caminfo(n, camera_name, camurl);
+    
     //subscribes and binds values to callback arguments with first value being substituted with message from subscribed topic
-    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, camera_info_manager::CameraInfoManager caminfo, image_transport::Publisher pub_img, ros::Publisher pub_info));
+    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, image_transport::Publisher pub_img, ros::Publisher pub_info));
     ros::spin();
     return 0;
 }
