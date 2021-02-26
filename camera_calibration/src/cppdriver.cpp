@@ -3,6 +3,7 @@
 #include <cv_bridge/cv_bridge.h> 
 #include <sstream>
 #include <camera_info_manager/camera_info_manager.h>
+#include <iostream>
 
 camera_info_manager::CameraInfoManager caminfo(n, camera_name, camurl);
 
