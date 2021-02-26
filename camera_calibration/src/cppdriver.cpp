@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     const string camurl = "";
     camera_info_manager::CameraInfoManager caminfo(n, camera_name, camurl);
     //subscribes and binds values to callback arguments with first value being substituted with message from subscribed topic
-    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, caminfo, pub_img, pub_info));
+    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, camera_info_manager::CameraInfoManager caminfo, image_transport::Publisher pub_img, ros::Publisher pub_info));
     ros::spin();
     return 0;
 }

@@ -150,7 +150,7 @@ add_executable(camera_calibration src/cppdriver.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-
+target_link_libraries(camera_calibration link)
 #############
 ## Install ##
 #############
