@@ -6,6 +6,9 @@ Script to stream images from photonfocus camera to incorporate with ROS for came
 """
 import interventionalhsi.io.photonfocus as pf
 import os
+import sys
+sys.path.append('/opt/ros/noetic/include/')
+#print(sys.path)
 import cv2
 import numpy as np
 import interventionalhsi
@@ -46,19 +49,10 @@ def get_settings(dir_output):
             gain = float(gain)
     return [exposure, gain]
 
-def image_publishers(pubinf, pubimg, seq, frame_id = '', height, width, image_2d, inf_mng):
+def image_publisher(pub, image_2d):
     bridge = CvBridge()
     image_2d = bridge.cv2_to_imgmsg(image_2d, '16UC1')
-    image_2d.header.seq = seq
-    image_2d.header.stamp = rospy.Time.now()
-    image_2d.header.frame_id = frame_id
-
-    info_msg = info_mng.getCameraInfo()
-    info_msg.header = image_2d.header
-    info_msg.height, info_msg.width = height, width
-
-    pubimg.publish(image_2d)
-    pubinf.publish(info_msg)
+    pub.publish(image_2d)
 
 def main():
     #print('started')
@@ -69,14 +63,6 @@ def main():
     parser.add_argument(
         "-o", "--output",
         help="Specify path to output directory of ihsi_viewer",
-    )
-    parser.add_argument(
-        "name",
-        help = "From launch file",
-    )
-    parser.add_argument(
-        "log",
-        help="From launch file",
     )
     args = parser.parse_args()
     if args.output is None:
@@ -91,13 +77,8 @@ def main():
         pixel_format="Mono10",
         verbose=False,
     )
-    cname = 'Photonfocus_camera'
-    url = 'file://${ROS_HOME}/camera_info/${NAME}.yaml'
-    rospy.init_node('camera_driver')
-    pubimg = rospy.Publisher('/' + cname + '/image_raw', Image, queue_size=1)
-    pubinf = rospy.Publisher('/' + cname + '/camera_info', CameraInfo, queue_size=1)
-    inf_mng = camera_info_manager.CameraInfoManager(cname=cname, url=url, namespace=cname)
-    inf_mng.loadCameraInfo()
+    rospy.init_node('send_images', anonymous=True)
+    pub = rospy.Publisher('Camera_publisher', Image, queue_size=10)
     height = camera.height
     width = camera.width
     rate = rospy.Rate(100)
@@ -105,7 +86,7 @@ def main():
     while not rospy.is_shutdown():
         nda_1d = camera.get_data()[0]
         nda = nda_1d.reshape(height, width)
-        image_publishers(pubinf, pubimg, seq, height, width, nda, inf_mng)
+        image_publisher(pub, nda)
         seq += 1
         rate.sleep()
         #inf_mng.camera_info = inf_msg
