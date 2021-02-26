@@ -1,0 +1,8 @@
+prefix=/home/ab20/fri_ros_ws/src/HSI_KUKA/camera_calibration/build/devel
+
+Name: camera_calibration
+Description: Description of camera_calibration
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
