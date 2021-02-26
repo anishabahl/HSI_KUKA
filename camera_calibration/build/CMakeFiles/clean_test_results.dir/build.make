@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/ab20/fri_ros_ws/src/HSI_KUKA/camera_calibration/build
 include CMakeFiles/clean_test_results.dir/progress.make
 
 CMakeFiles/clean_test_results:
-	/usr/bin/python3 /opt/ros/noetic/share/catkin/cmake/test/remove_test_results.py /home/ab20/fri_ros_ws/src/HSI_KUKA/camera_calibration/build/test_results
+	/home/ab20/Software/PythonVirtualenv/py3hsi/bin/python3 /opt/ros/noetic/share/catkin/cmake/test/remove_test_results.py /home/ab20/fri_ros_ws/src/HSI_KUKA/camera_calibration/build/test_results
 
 clean_test_results: CMakeFiles/clean_test_results
 clean_test_results: CMakeFiles/clean_test_results.dir/build.make

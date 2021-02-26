@@ -1,5 +1,4 @@
 <launch>
-    <node name="camera_calibration" pkg="camera_calibration" type="camera_calibration" output="terminal"/>
     <node pkg="camera_calibration" name="driver" type="driver.py" ns='camera' output="screen" args="$(arg my_args)"/>
     <node pkg="camera_calibration" name="cppdriver" type="cppdriver.cpp" ns='camera' output="screen"/>
 </launch>
