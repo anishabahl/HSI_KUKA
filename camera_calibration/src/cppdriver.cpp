@@ -5,8 +5,10 @@
 #include <camera_info_manager/camera_info_manager.h>
 #include <iostream>
 #include <string>
+sensor_msgs::CameraInfo ci;
+camera_info_manager::CameraInfoManager *caminfoptr; 
 
-void imageCallback(const sensor_msgs::ImageConstPtr& msg, image_transport::Publisher pub_img, ros::Publisher pub_info, camera_info_manager::CameraInfoManager& caminfo, sensor_msgs::CameraInfo& ci)
+void imageCallback(const sensor_msgs::ImageConstPtr& msg, image_transport::Publisher pub_img, ros::Publisher pub_info)
 { //use camera_info_manager to create header for camera_info topic
     //int height = sizeof(msg);
     //int width = sizeof(msg[0]);
@@ -17,7 +19,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg, image_transport::Publi
     //ci.header.height = height; 
     //ci.header.width = width;
     ci.distortion_model = "plumb_bob";
-    caminfo.setCameraInfo(ci);
+    caminfoptr->setCameraInfo(ci);
     // publish camera_info and image_raw with camera_info_manager and image_transport 
     pub_img.publish(msg);
     pub_info.publish(ci);
@@ -33,11 +35,11 @@ int main(int argc, char **argv)
     ros::Publisher pub_info = n.advertise<sensor_msgs::CameraInfo>(camera_name+"/camera_info", 1);
     const std::string camurl = "";
     camera_info_manager::CameraInfoManager caminfo(n, camera_name, camurl);
-    sensor_msgs::CameraInfo ci;
     caminfo.loadCameraInfo(camurl);
+    caminfoptr = &caminfo;
     ci =caminfo.getCameraInfo();
     //subscribes and binds values to callback arguments with first value being substituted with message from subscribed topic
-    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, pub_img, pub_info, caminfo, ci));
+    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, pub_img, pub_info));
     ros::spin();
     return 0;
 }
