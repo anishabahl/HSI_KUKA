@@ -1,45 +1,36 @@
 #include <ros/ros.h>
+#include <sensor_msgs/Image.h>
 #include <image_transport/image_transport.h> 
-#include <cv_bridge/cv_bridge.h> 
-#include <sstream>
 #include <camera_info_manager/camera_info_manager.h>
-#include <iostream>
 #include <string>
-sensor_msgs::CameraInfo ci;
-camera_info_manager::CameraInfoManager *caminfoptr; 
 
-void imageCallback(const sensor_msgs::ImageConstPtr& msg, image_transport::Publisher pub_img, ros::Publisher pub_info)
-{ //use camera_info_manager to create header for camera_info topic
-    //int height = sizeof(msg);
-    //int width = sizeof(msg[0]);
-    //sensor_msgs::CameraInfo ci;
-    //ci = caminfo.getCameraInfo();
-    ci.header.stamp = ros::Time::now(); 
-    //ci.header.frame_id = "";
-    //ci.header.height = height; 
-    //ci.header.width = width;
-    ci.distortion_model = "plumb_bob";
-    caminfoptr->setCameraInfo(ci);
-    // publish camera_info and image_raw with camera_info_manager and image_transport 
-    pub_img.publish(msg);
-    pub_info.publish(ci);
+image_transport::ImageTransport* img_transport;
+camera_info_manager::CameraInfoManager *cam_info_manager; 
+image_transport::CameraPublisher img_pub; 
+
+auto imageCallback(const sensor_msgs::ImageConstPtr& msg) -> void{
+    auto cam_info = cam_info_manager->getCameraInfo(); 
+    cam_info.header = msg->header; 
+    img_pub.publish(*msg, cam_info); 
 }
 
 int main(int argc, char **argv)
 { //init ros nodes, publishers and subsriber
-    ros::init(argc, argv, "driver");
-    ros::NodeHandle n;
-    const std::string camera_name = "photonfocusNIR";
-    image_transport::ImageTransport it(n);
-    image_transport::Publisher pub_img=it.advertise(camera_name+"/image_raw", 1);
-    ros::Publisher pub_info = n.advertise<sensor_msgs::CameraInfo>(camera_name+"/camera_info", 1);
-    const std::string camurl = "";
-    camera_info_manager::CameraInfoManager caminfo(n, camera_name, camurl);
-    caminfo.loadCameraInfo(camurl);
-    caminfoptr = &caminfo;
-    ci =caminfo.getCameraInfo();
+    ros::init(argc, argv, "cppdriver");
+    ros::NodeHandle nh;
+    ros::NodeHandle private_nh("~");
+
+    const std::string cname = "photonfocusNIR";
+    const std::string url = "package://camera_calibration/configs/photonfocusNIR.yaml";
+
+    img_transport = new image_transport::ImageTransport(nh);
+    cam_info_manager = new camera_info_manager::CameraInfoManager(nh, cname, url);
+    img_pub = img_transport->advertiseCamera("image_raw", 1);
     //subscribes and binds values to callback arguments with first value being substituted with message from subscribed topic
-    image_transport::Subscriber sub= it.subscribe("Camera_publisher", 10, boost::bind(imageCallback, _1, pub_img, pub_info));
+    auto img_sub = nh.subscribe("Camera_publisher", 1, imageCallback);
     ros::spin();
+
+    delete img_transport; 
+    delete cam_info_manager;
     return 0;
 }

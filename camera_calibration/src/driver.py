@@ -52,6 +52,9 @@ def get_settings(dir_output):
 def image_publisher(pub, image_2d):
     bridge = CvBridge()
     image_2d = bridge.cv2_to_imgmsg(image_2d, '16UC1')
+    image_2d.header.seq = seq 
+    image_2d.header.stamp = rospy.Time.now()
+    image_2d.header.frame_id = frame_id 
     pub.publish(image_2d)
 
 def main():
@@ -63,6 +66,14 @@ def main():
     parser.add_argument(
         "-o", "--output",
         help="Specify path to output directory of ihsi_viewer",
+    )
+    parser.add_argument(
+        "name",
+        help = "From launch file",
+    )
+    parser.add_argument(
+        "log",
+        help="From launch file",
     )
     args = parser.parse_args()
     if args.output is None:
@@ -78,10 +89,11 @@ def main():
         verbose=False,
     )
     rospy.init_node('send_images', anonymous=True)
-    pub = rospy.Publisher('Camera_publisher', Image, queue_size=10)
+    pub = rospy.Publisher('Camera_publisher', Image, queue_size=1)
     height = camera.height
     width = camera.width
     rate = rospy.Rate(100)
+    frame_id = ''
     seq = 0
     while not rospy.is_shutdown():
         nda_1d = camera.get_data()[0]
