@@ -1,0 +1,7 @@
+<launch>
+    <node name="python_publisher" pkg="camera_calibration_nodes" type="driver.py" ns='photonfocusNIR' output="screen" args="$(arg my_args)"/>
+
+    <node name="cppdriver" pkg="camera_calibration_nodes" type="camera_calibration_node" ns='photonfocusNIR' output="screen">
+        <remap from="/set_camera_info" to="/camera_info/set_camera_info"/>
+    </node>
+</launch>
