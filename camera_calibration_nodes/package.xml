@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>camera_calibration</name>
+  <name>camera_calibration_nodes</name>
   <version>0.0.0</version>
-  <description>The camera_calibration package</description>
+  <description>The camera_calibration_nodes package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
